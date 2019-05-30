@@ -1,16 +1,7 @@
 // @flow
-import path from 'path';
-import dotenvSafe from 'dotenv-safe';
-
-const root = path.join.bind(this, __dirname, '../../');
-
-dotenvSafe.load({
-  path: root('.env.dev'),
-  sample: root('.env.example'),
-});
 
 // Database Settings
-export const MONGO_URI = process.env.MONGO || 'mongodb://localhost/myserver';
+export const MONGO_URI = process.env.MONGO || 'mongodb://localhost:27017/myserver';
 
 export const jwtSecret = process.env.SECRET || 'awesome_secret';
 

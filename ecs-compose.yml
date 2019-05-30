@@ -1,0 +1,14 @@
+version: "2"
+services:
+  mongodb:
+    image: registry.hub.docker.com/library/mongo:latest
+    container_name: "mongodb"
+    ports:
+        - 27017:27017
+  app:
+    image: 127603859434.dkr.ecr.us-east-1.amazonaws.com/sunsama_test_server
+    container_name: "sunsama-server"
+    environment:
+      MONGO: "mongodb://mongodb:27017/myserver"
+    ports:
+      - 3000:3000
