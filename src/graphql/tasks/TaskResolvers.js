@@ -27,7 +27,7 @@ const resolvers = {
     const task = new TaskModel({
       title,
       description,
-      time,
+      time: new Date(time),
       user: user._id,
     });
 
@@ -37,17 +37,45 @@ const resolvers = {
 
     return await TaskModel.findOne({ _id });
   },
+  taskUpdate: async (obj, args, context) => {
+    const { id, title, description, time, checked } = args;
+    const { user } = context;
+
+    if (!user) {
+      throw new Error('Unauthenticated');
+    }
+
+    const task = await TaskModel.findOne({ _id: id });
+    if (title) {
+      task.title = title;
+    }
+    if (description) {
+      task.description = description;
+    }
+    if (time) {
+      task.time = new Date(time);
+    }
+    if (checked) {
+      task.checked = checked;
+    }
+    await task.save();
+
+    return task;
+  },
   userTasks: async (args, userId) => {
     if (!userId) {
       throw new Error('NotFound');
     }
 
-    const { date } = args;
+    const { time } = args;
 
-    const where = !date ? {}
+    const where = !time ? {}
       : {
         user: userId,
-        time: { $date: new Date(date) },
+        time: {
+          $gte: new Date(`${time} 00:00:00`),
+          $lte: new Date(`${time} 23:59:59`),
+        },
       };
 
     const tasks = TaskModel.find(where);
@@ -59,15 +87,18 @@ const resolvers = {
   },
   tasks: async (obj, args, context) => {
     const { user } = context;
-    const { date } = args;
+    const { time } = args;
 
     if (!user) {
       throw new Error('Unauthenticated');
     }
 
-    const where = !date ? {}
+    const where = !time ? {}
       : {
-        time: { $date: new Date(date) },
+        time: {
+          $gte: new Date(`${time} 00:00:00`),
+          $lte: new Date(`${time} 23:59:59`),
+        },
       };
 
     const tasks = TaskModel.find(where);

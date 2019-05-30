@@ -17,7 +17,7 @@ const Schema = mongoose.Schema(
       ref: 'User',
     },
     time: {
-      type: String,
+      type: Date,
       required: true,
     },
     checked: {

@@ -16,6 +16,7 @@ const queryTypes = gql`
     userAdd(name: String!, email: String!, password: String!): UserAuth
     login(email: String!, password: String!): UserAuth
     taskAdd(title: String!, description: String!, time: String!): Task
+    taskUpdate(id: ID!, title: String, description: String, time: String, checked: Boolean): Task
   }
 `;
 

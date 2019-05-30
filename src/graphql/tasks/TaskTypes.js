@@ -7,6 +7,7 @@ const taskType = gql`
     title: String
     description: String
     time: String
+    checked: Boolean
     user: User
   }
 
