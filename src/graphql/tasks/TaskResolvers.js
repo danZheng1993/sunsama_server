@@ -55,7 +55,7 @@ const resolvers = {
     if (time) {
       task.time = new Date(time);
     }
-    if (checked) {
+    if (checked !== undefined) {
       task.checked = checked;
     }
     await task.save();
