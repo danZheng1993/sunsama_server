@@ -8,7 +8,7 @@ services:
   app:
     build: 
       context: .
-    container_name: "apollo-boilerplate"
+    container_name: "sunsama-server"
     environment:
       MONGO: "mongodb://mongodb:27017/myserver"
     ports:
