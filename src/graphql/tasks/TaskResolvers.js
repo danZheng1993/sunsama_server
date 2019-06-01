@@ -62,6 +62,18 @@ const resolvers = {
 
     return task;
   },
+  taskDelete: async (obj, args, context) => {
+    const { id } = args;
+    const { user } = context;
+
+    if (!user) {
+      throw new Error('Unauthenticated');
+    }
+
+    await TaskModel.findOneAndRemove({ _id: id });
+
+    return true;
+  },
   userTasks: async (args, userId) => {
     if (!userId) {
       throw new Error('NotFound');

@@ -67,11 +67,11 @@ const userResolvers = {
       throw new Error('Please fill all the fields');
     }
 
-    const checkEmail = UserModel.findOne({
+    const checkEmail = await UserModel.findOne({
       email,
-    });
+    }).exec();
 
-    if (!checkEmail) {
+    if (checkEmail) {
       throw new Error('This email is already registered!');
     }
 

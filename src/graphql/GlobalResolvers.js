@@ -15,6 +15,7 @@ const globalResolvers = {
     login: userResolvers.login,
     taskAdd: taskResolvers.taskAdd,
     taskUpdate: taskResolvers.taskUpdate,
+    taskDelete: taskResolvers.taskDelete,
   },
   Task: taskResolvers.task,
   User: userResolvers.User,
